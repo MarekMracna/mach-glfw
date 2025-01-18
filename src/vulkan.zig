@@ -129,7 +129,7 @@ pub const VKProc = *const fn () callconv(if (builtin.os.tag == .windows and buil
 /// @thread_safety This function may be called from any thread.
 pub fn getInstanceProcAddress(vk_instance: ?*anyopaque, proc_name: [*:0]const u8) callconv(.C) ?VKProc {
     internal_debug.assertInitialized();
-    if (c.glfwGetInstanceProcAddress(if (vk_instance) |v| @as(c.VkInstance, @ptrCast(v)) else null, proc_name)) |proc_address| return proc_address;
+    if (c.glfwGetInstanceProcAddress(if (vk_instance) |v| @as(c.VkInstance, @ptrCast(v)) else null, proc_name)) |proc_address| return @ptrCast(proc_address);
     return null;
 }
 
